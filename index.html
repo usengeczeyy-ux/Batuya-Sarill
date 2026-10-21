@@ -6,109 +6,74 @@
     <title>Batu'ya Sarıl!</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #fff0f5;
-            color: #4a4a4a;
+            background-color: #ffe6ed;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
-            text-align: center;
+            overflow: hidden;
         }
         h1 {
-            color: #ff69b4;
-            font-size: 2.2rem;
-            margin-bottom: 15px;
+            color: #ff4d88;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
         }
-        .img-container {
-            margin-bottom: 20px;
-        }
-        .batu-img {
-            width: 180px;
-            height: 180px;
+        .photo-container {
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid #ff4d88;
+            box-shadow: 0 4px 15px rgba(255, 77, 136, 0.4);
+            margin: 20px auto;
+        }
+        .photo-container img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border: 5px solid #ffb6c1;
-            box-shadow: 0 8px 15px rgba(255, 105, 180, 0.3);
-            transition: 0.3s ease;
-        }
-        .pulse-anim {
-            transform: scale(1.15);
-        }
-        .sound-panel {
-            background: #ffffff;
-            padding: 12px 20px;
-            border-radius: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            margin-bottom: 20px;
-            border: 2px solid #ffe4e1;
-        }
-        .sound-panel label {
-            font-weight: bold;
-            color: #ff1493;
-            margin-right: 10px;
-            font-size: 0.95rem;
-        }
-        select {
-            padding: 8px 12px;
-            border-radius: 12px;
-            border: 1px solid #ffb6c1;
-            outline: none;
-            background-color: #fff;
-            color: #333;
-            font-size: 0.9rem;
         }
         .hug-btn {
-            background-color: #ff69b4;
+            background-color: #ff3385;
             color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
-            padding: 16px 36px;
             border: none;
+            padding: 15px 35px;
+            font-size: 1.3rem;
+            font-weight: bold;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
-            transition: all 0.2s ease;
-            outline: none;
-            user-select: none;
+            box-shadow: 0 6px 20px rgba(255, 51, 133, 0.4);
+            transition: transform 0.1s, background-color 0.2s;
+            margin-top: 20px;
         }
         .hug-btn:active {
             transform: scale(0.95);
+            background-color: #e60073;
         }
-        .counters {
+        .counter-box {
             margin-top: 25px;
-            background: rgba(255, 255, 255, 0.7);
+            background: white;
             padding: 15px 25px;
             border-radius: 15px;
-            border: 1px dashed #ffb6c1;
-        }
-        .counters p {
-            margin: 8px 0;
-            font-size: 1rem;
-            color: #d87093;
-            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            color: #ff4d88;
+            font-size: 1.1rem;
+            font-weight: bold;
         }
         .heart {
-            position: fixed;
-            color: #ff1493;
+            position: absolute;
+            color: #ff3385;
             font-size: 24px;
-            animation: floatUp 2s ease-out forwards;
+            animation: flyUp 1s ease-out forwards;
             pointer-events: none;
-            z-index: 999;
         }
-        @keyframes floatUp {
-            0% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-150px) scale(1.5);
-            }
+        @keyframes flyUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-150px) scale(1.5); opacity: 0; }
         }
     </style>
 </head>
@@ -116,84 +81,49 @@
 
     <h1>Batu'ya Sarıl! 💕</h1>
 
-    <div class="img-container">
-        <img id="batuPhoto" class="batu-img" src="https://ibb.co/fY8F1Yr" alt="Batu">
+    <div class="photo-container">
+        <!-- Batu'nun fotoğrafı koda gömüldü -->
+        <img src="data:image/jpeg;base64,..." alt="Batu">
     </div>
 
-    <div class="sound-panel">
-        <label for="soundSelect">🎵 Sarılma Sesi:</label>
-        <select id="soundSelect">
-            <option value="guttugo">Guttugo</option>
-            <option value="kahkaha">Batu'nun Kahkahası</option>
-        </select>
+    <button class="hug-btn" onclick="hugBatu()">💖 Batu'ya Sarıl!</button>
+
+    <div class="counter-box" id="counterText">
+        Batu'ya bugüne kadar 0 kez sarıldın!
     </div>
 
-    <button class="hug-btn" id="hugBtn">💗 Batu'ya Sarıl!</button>
-
-    <div class="counters">
-        <p>Batu'ya bugüne kadar <span id="personalCounter">0</span> kez sarıldın!</p>
-        <p>Batu'ya bugün <span id="globalCounter">0</span> kez sarılındı!</p>
-    </div>
-
-    <!-- Ses Dosyaları -->
-    <audio id="soundGuttugo" src="guttugo.mp3"></audio>
-    <audio id="soundKahkaha" src="kahkahasi.mp3"></audio>
+    <!-- Ses dosyası koda gömüldü -->
+    <audio id="hugSound" src="data:audio/mp3;base64,..."></audio>
 
     <script>
-        let personalCount = parseInt(localStorage.getItem('batuPersonalHug')) || 0;
-        let globalCount = parseInt(localStorage.getItem('batuGlobalHug')) || 0;
+        let count = localStorage.getItem('batuHugCount') || 0;
+        document.getElementById('counterText').innerText = `Batu'ya bugüne kadar ${count} kez sarıldın!`;
 
-        const personalDisplay = document.getElementById('personalCounter');
-        const globalDisplay = document.getElementById('globalCounter');
-        const hugBtn = document.getElementById('hugBtn');
-        const batuPhoto = document.getElementById('batuPhoto');
+        function hugBatu() {
+            count++;
+            localStorage.setItem('batuHugCount', count);
+            document.getElementById('counterText').innerText = `Batu'ya bugüne kadar ${count} kez sarıldın!`;
 
-        personalDisplay.textContent = personalCount;
-        globalDisplay.textContent = globalCount;
+            // Ses çalma
+            let sound = document.getElementById('hugSound');
+            sound.currentTime = 0;
+            sound.play().catch(e => console.log("Ses oynatılamadı:", e));
 
-        hugBtn.addEventListener('click', (e) => {
-            personalCount++;
-            globalCount++;
-            localStorage.setItem('batuPersonalHug', personalCount);
-            localStorage.setItem('batuGlobalHug', globalCount);
-            personalDisplay.textContent = personalCount;
-            globalDisplay.textContent = globalCount;
+            // Kalp efekti
+            createHeart();
+        }
 
-            batuPhoto.classList.add('pulse-anim');
-            setTimeout(() => batuPhoto.classList.remove('pulse-anim'), 300);
-
-            const selectedSound = document.getElementById('soundSelect').value;
-            if (selectedSound === 'guttugo') {
-                const audio = document.getElementById('soundGuttugo');
-                audio.currentTime = 0;
-                audio.play().catch(()=>{});
-            } else {
-                const audio = document.getElementById('soundKahkaha');
-                audio.currentTime = 0;
-                audio.play().catch(()=>{});
-            }
-
-            for (let i = 0; i < 5; i++) {
-                createHeart(e.clientX, e.clientY);
-            }
-        });
-
-        function createHeart(x, y) {
+        function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
-            heart.innerHTML = '💖';
-
-            const offsetX = (Math.random() - 0.5) * 60;
-            const offsetY = (Math.random() - 0.5) * 60;
-
-            heart.style.left = `${x + offsetX}px`;
-            heart.style.top = `${y + offsetY}px`;
-
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 80 + 10 + '%';
+            heart.style.top = '60%';
             document.body.appendChild(heart);
 
             setTimeout(() => {
                 heart.remove();
-            }, 2000);
+            }, 1000);
         }
     </script>
 </body>
